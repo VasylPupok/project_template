@@ -1,6 +1,8 @@
 import os
 
-from pandas import read_fwf
+import pandas
+from pandas import read_fwf, read_csv
+
 
 def read_text(prompt: str) -> str:
     """
@@ -12,6 +14,7 @@ def read_text(prompt: str) -> str:
     """
     return input(prompt)
 
+
 def read_file(path: str) -> str|None:
     """
     This function reads text from file and returns this text as string
@@ -21,13 +24,13 @@ def read_file(path: str) -> str|None:
         text in given file, or None in case of error
     """
     try:
-        file = open(path, "r")
-        return file.read()
+        with open(path, "r") as file:
+            return file.read()
     except OSError:
         return None
 
 
-def read_file_pandas(path: str) -> str|None:
+def read_csv_pandas(path: str) -> pandas.DataFrame|None:
     """
     This function reads text from file and returns this text as string
     Uses Pandas library for implementation
@@ -37,6 +40,5 @@ def read_file_pandas(path: str) -> str|None:
         text in given file, or None in case of error
     """
     if os.path.isfile(path):
-        file = read_fwf(path)
-        return str(file)
+        return read_csv(path, dtype=str)
     return None

@@ -7,7 +7,7 @@ def write_text(text: str) -> None:
     Returns:
         None
     """
-    print(str)
+    print(text)
 
 
 def write_file(path: str, text: str) -> bool:
@@ -20,8 +20,8 @@ def write_file(path: str, text: str) -> bool:
         True when file exists and text was written successfully, otherwise False
     """
     try:
-        file = open(path, "a")
-        file.write(text)
+        with open(path, "a") as file:
+            file.write(text)
         return True
     except OSError:
         return False
@@ -37,8 +37,8 @@ def overwrite_file(path: str, text: str) -> bool:
         True when file exists and text was written successfully, otherwise False
     """
     try:
-        file = open(path, "x")
-        file.write(text)
+        with open(path, "w") as file:
+            file.write(text)
         return True
     except OSError:
         return False
